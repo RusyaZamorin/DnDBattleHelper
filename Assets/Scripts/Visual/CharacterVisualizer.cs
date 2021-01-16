@@ -9,14 +9,16 @@ using Calculator;
 
 public class CharacterVisualizer : MonoBehaviour
 {
-    public Character Character;    
-    
+    public Character Character;
+
+    [SerializeField] public TMP_Text NumberInSequenceField;
+
     [SerializeField] private TMP_InputField _maxHitPointsField;
     [SerializeField] private TMP_InputField _hitPointsField;
     [SerializeField] private TMP_InputField _bonusHitPointsField;
     [SerializeField] private TMP_InputField _armorClassField; 
     [SerializeField] private TMP_InputField _initiativeField;    
-    [SerializeField] private TMP_InputField _nameInputField;
+    [SerializeField] private TMP_InputField _nameInputField;    
 
     public Action OnCreate;
     public Action<CharacterVisualizer> OnDelete;

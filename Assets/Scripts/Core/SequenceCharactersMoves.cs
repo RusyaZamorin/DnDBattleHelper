@@ -6,94 +6,71 @@ using System;
 
 namespace Core
 {
-    public class SequenceCharactersMoves : MonoBehaviour
+    public class SequenceCharactersMoves
     {
         public bool AutoSort = true;
+        public SortTypes SortType = SortTypes.RightToLeft;
+        public enum SortTypes
+        {
+            RightToLeft,
+            LeftToRight
+        }
 
-        [SerializeField] private List<CharacterVisualizer> _sequence = new List<CharacterVisualizer>();
-        [SerializeField] private Transform _visualizatorsContainerTransform;
+        public List<Character> Sequence = new List<Character>();        
         
-        public event Action OnSortedByInitiative;         
+        public event Action OnSortedByInitiative;        
 
         public void SortByInitiative()
         {
-            _sequence.Sort((x,y) => y.Character.Initiative.CompareTo(x.Character.Initiative));
-
-            RedrawSequence();
+            if(SortType == SortTypes.RightToLeft)
+                Sequence.Sort((x,y) => y.Initiative.CompareTo(x.Initiative));
+            else if(SortType == SortTypes.LeftToRight)
+                Sequence.Sort((x, y) => x.Initiative.CompareTo(y.Initiative));            
 
             OnSortedByInitiative?.Invoke();
         }
 
-        public void AddCharacter(CharacterVisualizer character)
+        public void AddCharacter(Character character)
         {
-            _sequence.Add(character);
-            character.OnDelete += DeleteCharacter;
-            character.OnChangedInitiative += HandleInitiativeChange;
-            character.OnMoveLeft += MoveCharacterLeft;
-            character.OnMoveRight += MoveCharacterRight;
+            Sequence.Add(character);            
+            character.OnChangedInitiative += (int initiative) => HandleInitiativeChange();            
 
             if (AutoSort == true) 
                 SortByInitiative();
         }
 
-        public void DeleteCharacter(CharacterVisualizer character)
+        public void DeleteCharacter(Character character)
         {
-            if(_sequence.Contains(character))
-                _sequence.Remove(character);
+            if(Sequence.Contains(character))
+                Sequence.Remove(character);                 
+        }        
 
-            Destroy(character.gameObject);            
-        }
-
-        public void SetAutoSort(bool state)
+        public void MoveCharacterLeft(Character character)
         {
-            AutoSort = state;
-            if (AutoSort == true)
-                SortByInitiative();
-        }
-
-        public void MoveCharacterLeft(CharacterVisualizer character)
-        {
-            int currentIndex = _sequence.IndexOf(character);
+            int currentIndex = Sequence.IndexOf(character);
             if (currentIndex <= 0)
                 return;
 
-            _sequence.Remove(character);
-            _sequence.Insert(currentIndex - 1, character);
-
-            RedrawSequence();
+            Sequence.Remove(character);
+            Sequence.Insert(currentIndex - 1, character);            
         }
 
-        public void MoveCharacterRight(CharacterVisualizer character)
+        public void MoveCharacterRight(Character character)
         {
-            int currentIndex = _sequence.IndexOf(character);
-            if (currentIndex >= _sequence.Count - 1)
+            int currentIndex = Sequence.IndexOf(character);
+            if (currentIndex >= Sequence.Count - 1)
                 return;
 
-            _sequence.Remove(character);
-            _sequence.Insert(currentIndex + 1, character);
-
-            RedrawSequence();
+            Sequence.Remove(character);
+            Sequence.Insert(currentIndex + 1, character);            
         }
-
-        private void RedrawSequence()
-        {
-            foreach (CharacterVisualizer visualizer in _sequence)
-            {
-                visualizer.transform.SetSiblingIndex(_sequence.IndexOf(visualizer));
-            }
-        }
-
+        
         private void HandleInitiativeChange()
         {
             if (AutoSort == true)
                 SortByInitiative();            
         }              
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.S))
-                SortByInitiative();
-        }
     }
 }
 

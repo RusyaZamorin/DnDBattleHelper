@@ -6,18 +6,19 @@ using Core;
 public class CharacterVisualizatorCreater : MonoBehaviour
 {
     [SerializeField] private GameObject _characterVisualizerPrefab;
-    [SerializeField] private SequenceCharactersMoves _sequenceCharactersMoves;
+    [SerializeField] private SequenceCharacterMovesMonobeh _sequenceCharactersMoves;
     [SerializeField] private CharacterVisualizer _editableCharacterVisualizer;
+    [SerializeField] private Transform _cardsContainerTransform;
 
     public void CreateCharacterVisualizer()
     {
-        var newCharacterVisualizer = Instantiate(_characterVisualizerPrefab, _sequenceCharactersMoves.transform, false)
+        var newCharacterVisualizer = Instantiate(_characterVisualizerPrefab, _cardsContainerTransform, false)
             .GetComponent<CharacterVisualizer>();
 
         newCharacterVisualizer.Character = _editableCharacterVisualizer.Character.Copy();
         newCharacterVisualizer.Init();
 
-        _sequenceCharactersMoves.AddCharacter(newCharacterVisualizer);
+        _sequenceCharactersMoves.AddCharacterVisualizer(newCharacterVisualizer);
     }
 
     private void Start()
