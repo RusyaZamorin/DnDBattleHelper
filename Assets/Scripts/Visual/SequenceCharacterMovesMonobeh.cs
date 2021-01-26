@@ -5,7 +5,7 @@ using Core;
 
 public class SequenceCharacterMovesMonobeh : MonoBehaviour
 {
-    private SequenceCharactersMoves _sequence = new SequenceCharactersMoves();
+    private SequenceMovesManager _sequence = new SequenceMovesManager();
     private Dictionary<Character, CharacterVisualizer> _dictipnary_Characters_Visualizers = new Dictionary<Character, CharacterVisualizer>();
 
 
@@ -22,7 +22,9 @@ public class SequenceCharacterMovesMonobeh : MonoBehaviour
     public void DeleteCharacterVisualizer(CharacterVisualizer characterVisualizer)
     {
         _dictipnary_Characters_Visualizers.Remove(characterVisualizer.Character);
-        _sequence.DeleteCharacter(characterVisualizer.Character);        
+        _sequence.DeleteCharacter(characterVisualizer.Character);
+
+        Destroy(characterVisualizer.gameObject);
     }
 
     public void MoveCharacterVisualizerLeft(CharacterVisualizer characterVisualizer)
@@ -42,9 +44,9 @@ public class SequenceCharacterMovesMonobeh : MonoBehaviour
     public void SetSortType(bool rightToLeft)
     {
         if (rightToLeft == true)
-            _sequence.SortType = SequenceCharactersMoves.SortTypes.RightToLeft;
+            _sequence.SortType = SequenceMovesManager.SortTypes.RightToLeft;
         else
-            _sequence.SortType = SequenceCharactersMoves.SortTypes.LeftToRight;
+            _sequence.SortType = SequenceMovesManager.SortTypes.LeftToRight;
     }
 
     public void SetAutoSortState(bool active) => _sequence.AutoSort = active;    
@@ -61,7 +63,7 @@ public class SequenceCharacterMovesMonobeh : MonoBehaviour
         }             
     }        
 
-    private void Start()
+    private void Awake()
     {
         Init();
     }

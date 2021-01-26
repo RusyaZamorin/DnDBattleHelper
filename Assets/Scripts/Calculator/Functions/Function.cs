@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Calculator.Operators;
 
-namespace Calculator.Functions
+namespace Calculator
 {
     public class Function
     {
@@ -10,7 +8,7 @@ namespace Calculator.Functions
 
         public Function(IOperator funcOperator) => _funcOperator = funcOperator;        
 
-        public double Execute(double x)
+        public double Calculate(double x = 0)
         {
             _funcOperator.SetX(x);
             return _funcOperator.GetValue();

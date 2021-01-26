@@ -6,7 +6,7 @@ using System;
 
 namespace Core
 {
-    public class SequenceCharactersMoves
+    public class SequenceMovesManager 
     {
         public bool AutoSort = true;
         public SortTypes SortType = SortTypes.RightToLeft;

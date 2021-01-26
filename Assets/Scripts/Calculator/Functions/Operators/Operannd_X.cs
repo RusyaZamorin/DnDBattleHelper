@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Calculator.Functions
+namespace Calculator.Operators
 {
     public class Operannd_X : DefaultOperator
     {

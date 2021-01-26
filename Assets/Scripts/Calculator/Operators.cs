@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Calculator.Functions;
+using Calculator.Operators;
 
 namespace Calculator
 {
-    public class Operators
+    public class OperatorsBar
     {
         public static List<string> ListSymbols
         {

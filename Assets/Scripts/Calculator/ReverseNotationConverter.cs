@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Calculator.Functions;
+using Calculator.Operators;
 
 namespace Calculator
 {
@@ -65,9 +65,9 @@ namespace Calculator
                     lastNoteIsOperator = true;
                 }
                 
-                else if (Operators.IsX(input[i].ToString()))
+                else if (OperatorsBar.IsX(input[i].ToString()))
                 {
-                    output += Operators.XSymbol + " ";
+                    output += OperatorsBar.XSymbol + " ";
 
                     lastNoteIsOperator = false;
                 }
@@ -76,7 +76,7 @@ namespace Calculator
                 {
                     complexityOperator += input[i];
 
-                    if (Operators.IsOperator(complexityOperator))
+                    if (OperatorsBar.IsOperator(complexityOperator))
                     {
                         operStack.Push(complexityOperator);
                         complexityOperator = "";
@@ -108,11 +108,11 @@ namespace Calculator
 
             foreach (string notationElement in polishNotationList)
             {
-                if (Operators.IsOperator(notationElement))
+                if (OperatorsBar.IsOperator(notationElement))
                 {
-                    IOperator opert = Operators.GetOperator(notationElement);
+                    IOperator opert = OperatorsBar.GetOperator(notationElement);
 
-                    if (Operators.IsUnaryOperator(opert))
+                    if (OperatorsBar.IsUnaryOperator(opert))
                     {
                         opert.LeftOperand = operatorsStack.Pop();
                     }
@@ -124,7 +124,7 @@ namespace Calculator
 
                     operatorsStack.Push(opert);
                 }
-                else if (Operators.IsX(notationElement))
+                else if (OperatorsBar.IsX(notationElement))
                 {
                     operatorsStack.Push(new Operannd_X());
                 }
@@ -137,7 +137,7 @@ namespace Calculator
             firstOperator = operatorsStack.Pop();
 
             var function = new Function(firstOperator);
-            return function.Execute(0f);
+            return function.Calculate(0f);
         }
 
         static private bool IsDelimeter(string symbol)
@@ -147,19 +147,18 @@ namespace Calculator
             return false;
         }
 
-        static private bool IsOperator(string symbol)
+        static private bool IsOperator(string symbol) 
         {
-            if (Operators.ListSymbols.Contains(symbol))
-                return true;
-            return false;
+            return OperatorsBar.ListSymbols.Contains(symbol);
+
         }
 
         static private int GetPriority(string symbol)
         {
-            if (Operators.ListSymbols.Contains(symbol))
-                return Operators.ListSymbols.IndexOf(symbol);
+            if (OperatorsBar.ListSymbols.Contains(symbol))
+                return OperatorsBar.ListSymbols.IndexOf(symbol);
             else
-                return Operators.ListSymbols.Count;
+                return OperatorsBar.ListSymbols.Count;
         }
     }
 }
