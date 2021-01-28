@@ -31,7 +31,7 @@ namespace Application.CoreEntities
             set => SetValue(value);
         }
 
-        public Characteristic Clone()
+        public Characteristic Copy()
         {
             Characteristic newCharacteristic = new Characteristic(Name);
             newCharacteristic.Icon = Icon;

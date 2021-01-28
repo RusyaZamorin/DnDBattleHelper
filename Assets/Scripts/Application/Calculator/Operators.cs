@@ -32,7 +32,6 @@ namespace Calculator
 
         public static IOperator GetOperator(string symbol)
         {
-
             return (IOperator)Activator.CreateInstance(_operatorsTypes[symbol]);
         }
 

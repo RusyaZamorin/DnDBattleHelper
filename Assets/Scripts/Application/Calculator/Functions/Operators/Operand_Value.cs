@@ -8,6 +8,11 @@ namespace Calculator.Operators
     {
         private double _value;
 
+        public Operand_Value() : base(null, null)
+        {
+            _value = 0f;
+        }
+
         public Operand_Value(double value) : base(null,null)
         {
             _value = value;
@@ -24,6 +29,13 @@ namespace Calculator.Operators
         }
 
         public override string Symbol => _value.ToString();
+
+        public override IOperator Copy()
+        {
+            var copy = base.Copy();
+            ((Operand_Value)copy)._value = _value;
+            return copy;
+        }
     }
 
 }

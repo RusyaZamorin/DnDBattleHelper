@@ -25,6 +25,7 @@ namespace Calculator.Operators
         }
 
         public override string Symbol => "d";
+        
     }
 }
 

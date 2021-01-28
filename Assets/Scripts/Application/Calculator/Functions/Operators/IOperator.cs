@@ -13,7 +13,9 @@ namespace Calculator.Operators
 
         double GetValue();
 
-        void SetX(double x);                
+        void SetX(double x);
+
+        IOperator Copy();
     }
 }
 

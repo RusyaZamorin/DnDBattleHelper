@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,7 +33,18 @@ namespace Calculator.Operators
             if (_rightOperand != null)
                 _rightOperand.SetX(x);
         }
-   
+
+        public virtual IOperator Copy()
+        {
+            IOperator operatorCopy = (IOperator)Activator.CreateInstance(GetType());
+            if (_leftOperand != null)
+                operatorCopy.LeftOperand = _leftOperand.Copy();
+
+            if(_rightOperand != null)
+                operatorCopy.RightOperand = _rightOperand.Copy();
+
+            return operatorCopy;
+        }
     }
 }
 

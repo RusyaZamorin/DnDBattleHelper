@@ -71,6 +71,18 @@ namespace Application.CoreEntities
             OnDelete?.Invoke();
         }
 
+        public CharacterData Copy()
+        {
+            CharacterData characterCopy = new CharacterData(Name);
+
+            foreach (var characteristic in Characteristics)
+            {
+                characterCopy.Characteristics.Add(characteristic.Copy());
+            }
+
+            return characterCopy;
+        }        
+
         private static void AddCharacterToAllCharacteristic(CharacterData character)
         {
             if (AllCharactersData.Contains(character))
@@ -115,6 +127,7 @@ namespace Application.CoreEntities
             else
                 character.Index = 0;            
         }
+
     }
 }
 

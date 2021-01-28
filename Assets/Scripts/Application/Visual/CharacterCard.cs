@@ -43,15 +43,6 @@ namespace Application.Visual
         private void UpdateName() => _nameInputField.text = _character.Name;
         private void UpdateIndex() => _indexTextField.text = ParseIndex();
 
-        private void Start()
-        {
-            var ch = new CharacterData("Petr");
-            ch.Characteristics.Add(new Characteristic("Speed"));
-            ch.Characteristics.Add(new CharacteristicInt("Damage"));
-
-            Init(ch);
-        }
-
         private string ParseIndex()
         {
             if (_character.Index == 0)
