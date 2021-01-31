@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Calculator.Operators
+namespace CharacteristicsCalculator.Operators
 {
-    public class OpSplit : DefaultOperator
+    public class OpSplit : BaseOperator
     {
         public OpSplit() : base(null, null)
         {

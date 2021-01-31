@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Calculator.Operators
+namespace CharacteristicsCalculator.Operators
 {
-    public class OpMultiply : DefaultOperator
+    public class OpMultiply : BaseOperator
     {
         public OpMultiply() : base(null, null)
         {

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Calculator.Operators;
+using CharacteristicsCalculator.Operators;
 
-namespace Calculator
+namespace CharacteristicsCalculator
 {
-    public class ReverseNotationConverter 
+    public class PolishNotationConverter 
     {
         public static string FromString(string input)
         {
@@ -126,11 +126,11 @@ namespace Calculator
                 }
                 else if (OperatorsBar.IsX(notationElement))
                 {
-                    operatorsStack.Push(new Operannd_X());
+                    operatorsStack.Push(new OperandX());
                 }
                 else
                 {
-                    operatorsStack.Push(new Operand_Value(double.Parse(notationElement)));
+                    operatorsStack.Push(new OperandValue(double.Parse(notationElement)));
                 }
             }
 

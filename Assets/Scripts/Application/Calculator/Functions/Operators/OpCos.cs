@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Calculator.Operators
+namespace CharacteristicsCalculator.Operators
 {
-    public class OpCos : DefaultOperator
+    public class OpCos : BaseOperator
     {
         public OpCos() : base(null, null)
         {

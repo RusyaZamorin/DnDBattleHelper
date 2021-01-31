@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Calculator.Operators
+namespace CharacteristicsCalculator.Operators
 {
-    public class Operannd_X : DefaultOperator
+    public class OperandX : BaseOperator
     {
-        public const string XSymbol = "x";
+        public const string SymbolX = "x";
 
         private double _valueX;
 
-        public Operannd_X() : base(null, null) { }
+        public OperandX() : base(null, null) { }
 
         public override double GetValue()
         {

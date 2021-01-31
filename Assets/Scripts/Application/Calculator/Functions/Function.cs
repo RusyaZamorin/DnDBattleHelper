@@ -1,6 +1,6 @@
-﻿using Calculator.Operators;
+﻿using CharacteristicsCalculator.Operators;
 
-namespace Calculator
+namespace CharacteristicsCalculator
 {
     public class Function
     {
@@ -8,9 +8,9 @@ namespace Calculator
 
         public Function(IOperator funcOperator) => _funcOperator = funcOperator;        
 
-        public double Calculate(double x = 0)
+        public double Calculate(double variable = 0)
         {
-            _funcOperator.SetX(x);
+            _funcOperator.SetX(variable);
             return _funcOperator.GetValue();
         }
 

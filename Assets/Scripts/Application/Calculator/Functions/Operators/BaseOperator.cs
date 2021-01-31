@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Calculator.Operators
+namespace CharacteristicsCalculator.Operators
 {
-    public class DefaultOperator : IOperator
+    public abstract class BaseOperator : IOperator
     {
         public IOperator LeftOperand { get => _leftOperand; set => _leftOperand = value; }
         public IOperator RightOperand { get => _rightOperand; set => _rightOperand = value; }
@@ -13,7 +13,7 @@ namespace Calculator.Operators
         protected IOperator _leftOperand;
         protected IOperator _rightOperand;
 
-        public DefaultOperator(IOperator leftOperand, IOperator rightOperand)
+        public BaseOperator(IOperator leftOperand, IOperator rightOperand)
         {
             LeftOperand = leftOperand;
             RightOperand = rightOperand;

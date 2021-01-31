@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Calculator.Operators
+namespace CharacteristicsCalculator.Operators
 {
-    public class Operand_Value : DefaultOperator
+    public class OperandValue : BaseOperator
     {
         private double _value;
 
-        public Operand_Value() : base(null, null)
+        public OperandValue() : base(null, null)
         {
             _value = 0f;
         }
 
-        public Operand_Value(double value) : base(null,null)
+        public OperandValue(double value) : base(null,null)
         {
             _value = value;
         }
@@ -33,7 +33,7 @@ namespace Calculator.Operators
         public override IOperator Copy()
         {
             var copy = base.Copy();
-            ((Operand_Value)copy)._value = _value;
+            ((OperandValue)copy)._value = _value;
             return copy;
         }
     }

@@ -35,6 +35,7 @@ namespace Application.CreatingEditingCards
 
         public void Init()
         {
+            // Template init with creating character template
             string initiative = "Iitiative";
             string hp = "HP";
             _characterTemplate = new Character("name");

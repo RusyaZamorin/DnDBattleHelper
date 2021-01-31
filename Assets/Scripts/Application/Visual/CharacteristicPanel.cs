@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Application.CoreEntities;
-using Calculator;
+using CharacteristicsCalculator;
 
 namespace Application.Visual
 {
@@ -19,7 +19,7 @@ namespace Application.Visual
 
         public void SetValue(double value) => _characteristic.Value = value;
 
-        public void SetValue(string input) => SetValue(CharacteristicsCalculator.CalculateInputToDouble(input));
+        public void SetValue(string input) => SetValue(Calculator.CalculateInputToDouble(input));
 
         public void AddToValue(double addValue) => _characteristic.Value += addValue;
 

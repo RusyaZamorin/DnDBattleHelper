@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Calculator
+namespace CharacteristicsCalculator
 {
-    public static class CharacteristicsCalculator
+    public static class Calculator
     {
         public static double CalculateInputToDouble(string input)
         {
-            return ReverseNotationConverter.Calculate(input);
+            return PolishNotationConverter.Calculate(input);
         }
 
         public static int CalculateInputToInt(string input)

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Calculator.Operators;
+using CharacteristicsCalculator.Operators;
 
-namespace Calculator
+namespace CharacteristicsCalculator
 {
     public class OperatorsBar
     {
