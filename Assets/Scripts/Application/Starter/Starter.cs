@@ -2,28 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Application.CoreEntities;
-using Calculator;
-using Calculator.Operators;
+using Application.Visual;
+using Application.CreatingEditingCards;
 
 public class Starter : MonoBehaviour
-{    
-    public string input;
-    public Function f2;
-    private void Awake()
+{
+    [SerializeField] CharacterCardCreater _characterCardCreater;
+
+    private SequenceCharacters _sequenceCharacters;
+
+    private void Init()
     {
-        Function f = new Function(new OpDice(new Operand_Value(2), new Operand_Value(6)));
-        f2 = f.Copy();
+        _sequenceCharacters = new SequenceCharacters();
+
+
+        _characterCardCreater.Init();
     }
 
-    private void Update()
+    private void Awake()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("input = " + CharacteristicsCalculator.CalculateInputToInt(input));
-        }
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            Debug.Log(f2.Calculate());
-        }
+        Init();
     }
+
 }

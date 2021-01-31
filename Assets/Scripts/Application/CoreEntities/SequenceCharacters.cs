@@ -7,66 +7,80 @@ namespace Application.CoreEntities
 {
     public class SequenceCharacters 
     {
-        public bool AutoSort = true;
-        public SortTypes SortType = SortTypes.RightToLeft;
-        public string NameCharacteristicForSort;
         public enum SortTypes
         {
             RightToLeft,
             LeftToRight
         }
 
-        public List<CharacterData> Sequence = new List<CharacterData>();
+        public bool AutoSort = true;
+        public SortTypes SortType = SortTypes.RightToLeft;
+        public string NameCharacteristicForSort;        
+
+        private List<Character> _sequence = new List<Character>();
 
         public event Action OnSorted;
+        public event Action OnChangedSequence;
 
         public void Sort()
         {
             if (SortType == SortTypes.RightToLeft)
-                Sequence.Sort((x, y) => y.GetCharacteristicValue(NameCharacteristicForSort).
+                _sequence.Sort((x, y) => y.GetCharacteristicValue(NameCharacteristicForSort).
                     CompareTo(x.GetCharacteristicValue(NameCharacteristicForSort)));
 
             else if (SortType == SortTypes.LeftToRight)
-                Sequence.Sort((x, y) => x.GetCharacteristicValue(NameCharacteristicForSort).
+                _sequence.Sort((x, y) => x.GetCharacteristicValue(NameCharacteristicForSort).
                     CompareTo(y.GetCharacteristicValue(NameCharacteristicForSort)));
 
             OnSorted?.Invoke();
         }
 
-        public void AddCharacter(CharacterData character)
+        public void AddCharacter(Character character)
         {
-            Sequence.Add(character);            
+            _sequence.Add(character);            
 
             if (AutoSort == true)
                 Sort();
+
+            OnChangedSequence?.Invoke();
         }
 
-        public void DeleteCharacter(CharacterData character)
+        public void DeleteCharacter(Character character)
         {
-            if (Sequence.Contains(character))
-                Sequence.Remove(character);
+            if (_sequence.Contains(character))
+                _sequence.Remove(character);
+
+            OnChangedSequence?.Invoke();
         }
 
-        public void MoveCharacterLeft(CharacterData character)
+        public void MoveCharacterLeft(Character character)
         {
-            int currentIndex = Sequence.IndexOf(character);
+            int currentIndex = _sequence.IndexOf(character);
             if (currentIndex <= 0)
                 return;
 
-            Sequence.Remove(character);
-            Sequence.Insert(currentIndex - 1, character);
+            _sequence.Remove(character);
+            _sequence.Insert(currentIndex - 1, character);
+
+            OnChangedSequence?.Invoke();
         }
 
-        public void MoveCharacterRight(CharacterData character)
+        public void MoveCharacterRight(Character character)
         {
-            int currentIndex = Sequence.IndexOf(character);
-            if (currentIndex >= Sequence.Count - 1)
+            int currentIndex = _sequence.IndexOf(character);
+            if (currentIndex >= _sequence.Count - 1)
                 return;
 
-            Sequence.Remove(character);
-            Sequence.Insert(currentIndex + 1, character);
+            _sequence.Remove(character);
+            _sequence.Insert(currentIndex + 1, character);
+
+            OnChangedSequence?.Invoke();
         }
- 
+
+        public List<Character> GetItems() 
+        { 
+            return _sequence; 
+        }
     }
 }
 

@@ -408,6 +408,7 @@ GameObject:
   - component: {fileID: 531570010}
   - component: {fileID: 531570014}
   - component: {fileID: 531570015}
+  - component: {fileID: 531570016}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -534,6 +535,21 @@ MonoBehaviour:
   m_Spacing: {x: 100, y: 100}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &531570016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531570009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e4a25e1dd6d4c44ad316684a75cf7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cardPrefab: {fileID: 3300946121616929891, guid: 187bfd17b7f0abe40b7fbd18e4cdee96,
+    type: 3}
+  _cardsContainerTransform: {fileID: 531570013}
 --- !u!224 &1023816978 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3300946121616929888, guid: 187bfd17b7f0abe40b7fbd18e4cdee96,

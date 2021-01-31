@@ -15,9 +15,9 @@ namespace Application.Visual
         [SerializeField] TMP_InputField _nameInputField;
         [SerializeField] TMP_Text _indexTextField;
 
-        private CharacterData _character;
+        private Character _character;
 
-        public void Init(CharacterData character)
+        public void Init(Character character)
         {
             _character = character;
 
@@ -37,8 +37,18 @@ namespace Application.Visual
             character.OnChangedName += UpdateName;
             character.OnChangedIndex += UpdateIndex;
         }
+
         public void SetName(string name) => _character.Name = name;
 
+        public void ChangeCharacter(Character character)
+        {
+            for(int i = 0; i < _characteristicPanelsContainer.childCount; i++)
+            {
+                Destroy(_characteristicPanelsContainer.GetChild(i).gameObject);
+            }
+
+            Init(character);            
+        }
 
         private void UpdateName() => _nameInputField.text = _character.Name;
         private void UpdateIndex() => _indexTextField.text = ParseIndex();
@@ -48,7 +58,7 @@ namespace Application.Visual
             if (_character.Index == 0)
                 return "";
             else
-                return (_character.Index + 1).ToString();
+                return (_character.Index).ToString();
         }
     }
 }

@@ -5,9 +5,9 @@ using System;
 
 namespace Application.CoreEntities
 {
-    public class CharacterData
+    public class Character
     {
-        public static List<CharacterData> AllCharactersData = new List<CharacterData>();       
+        public static List<Character> AllCharactersData = new List<Character>();       
         private string _name = null;
         private int _index = 0;
         private List<Characteristic> _characteristics = new List<Characteristic>();
@@ -16,7 +16,7 @@ namespace Application.CoreEntities
         public Action OnChangedIndex;
         public Action OnDelete;
 
-        public CharacterData(string name)
+        public Character(string name)
         {
             Name = name;
             Index = 0;
@@ -71,9 +71,9 @@ namespace Application.CoreEntities
             OnDelete?.Invoke();
         }
 
-        public CharacterData Copy()
+        public Character Copy()
         {
-            CharacterData characterCopy = new CharacterData(Name);
+            Character characterCopy = new Character(Name);
 
             foreach (var characteristic in Characteristics)
             {
@@ -83,7 +83,7 @@ namespace Application.CoreEntities
             return characterCopy;
         }        
 
-        private static void AddCharacterToAllCharacteristic(CharacterData character)
+        private static void AddCharacterToAllCharacteristic(Character character)
         {
             if (AllCharactersData.Contains(character))
                 return;
@@ -98,7 +98,7 @@ namespace Application.CoreEntities
             AllCharactersData.Add(character);
         }
 
-        private static void RemoveCharacterFromAllCharacteristic(CharacterData character)
+        private static void RemoveCharacterFromAllCharacteristic(Character character)
         {
             if (AllCharactersData.Contains(character) == false)
                 return;
@@ -107,15 +107,15 @@ namespace Application.CoreEntities
 
             var characters = AllCharactersData.
                     FindAll(c => (c.Name == character.Name) && (c.Index > character.Index));            
-            foreach (CharacterData c in characters)
+            foreach (Character c in characters)
                 c.Index = c.Index - 1;
         }
 
-        private static void HandleRanameCharacteristic(CharacterData character, string newName)
+        private static void HandleRanameCharacteristic(Character character, string newName)
         {
             var charactersWithOldName = AllCharactersData.
                     FindAll(c => (c.Name == character.Name) && (c.Index > character.Index));
-            foreach (CharacterData c in charactersWithOldName)
+            foreach (Character c in charactersWithOldName)
                 c.Index -= 1;            
 
             var charactersWithNewName = AllCharactersData.FindAll(c => c.Name == newName);
