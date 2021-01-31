@@ -21,6 +21,8 @@ namespace Application.CoreEntities
 
         public event Action OnSorted;
         public event Action OnChangedSequence;
+        public event Action<Character> OnAddedCharacter;
+        public event Action<Character> OnDeleteCharacter;
 
         public void Sort()
         {
@@ -42,15 +44,19 @@ namespace Application.CoreEntities
             if (CanAutoSort == true)
                 Sort();
 
+
             OnChangedSequence?.Invoke();
+            OnAddedCharacter?.Invoke(character);
         }
 
         public void DeleteCharacter(Character character)
         {
+            OnDeleteCharacter?.Invoke(character);
+
             if (_sequence.Contains(character))
                 _sequence.Remove(character);
 
-            OnChangedSequence?.Invoke();
+            OnChangedSequence?.Invoke();            
         }
 
         public void MoveCharacterLeft(Character character)
