@@ -14,6 +14,10 @@ namespace Calculator
             return _funcOperator.GetValue();
         }
 
+        public Function Copy()
+        {            
+            return new Function(_funcOperator.Copy());
+        }
     }
 }
 

@@ -10,7 +10,7 @@ namespace Application.CoreEntities
     public class Characteristic
     {        
         public string Name;
-        public Texture2D Icon;
+        public Sprite Icon;
         public Function InitFunction = new Function(new Operand_Value(0f));
         public Function SetFunction = new Function(new Operannd_X());
 
@@ -31,12 +31,13 @@ namespace Application.CoreEntities
             set => SetValue(value);
         }
 
-        public Characteristic Clone()
+        public Characteristic Copy()
         {
             Characteristic newCharacteristic = new Characteristic(Name);
             newCharacteristic.Icon = Icon;
             newCharacteristic.InitFunction = InitFunction;
             newCharacteristic.SetFunction = SetFunction;
+            newCharacteristic._valueData = _valueData;
             return newCharacteristic;
         }
 

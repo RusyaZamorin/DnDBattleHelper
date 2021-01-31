@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Application.CoreEntities;
-using Calculator;
+using Application.Visual;
+using Application.CreatingEditingCards;
 
 public class Starter : MonoBehaviour
-{    
-    public string input;
-    private void Awake()
-    {      
+{
+    [SerializeField] CharacterCardCreater _characterCardCreater;
+
+    private SequenceCharacters _sequenceCharacters;
+
+    private void Init()
+    {
+        _sequenceCharacters = new SequenceCharacters();
+
+
+        _characterCardCreater.Init();
     }
 
-    private void Update()
+    private void Awake()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("input = " + CharacteristicsCalculator.CalculateInputToInt(input));
-        }
+        Init();
     }
+
 }
