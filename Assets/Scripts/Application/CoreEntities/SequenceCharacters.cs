@@ -13,7 +13,7 @@ namespace Application.CoreEntities
             LeftToRight
         }
 
-        public bool AutoSort = true;
+        public bool CanAutoSort = true;
         public SortTypes SortType = SortTypes.RightToLeft;
         public string NameCharacteristicForSort;        
 
