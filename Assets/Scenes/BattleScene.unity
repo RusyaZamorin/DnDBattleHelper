@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5563f91b8840db545a95e8b51ab608a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: 
+  _characterCardCreater: {fileID: 609460018}
 --- !u!1 &368095146
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,9 +654,9 @@ MonoBehaviour:
   _cardPrefab: {fileID: 6098438846996988200, guid: 9fa256c769b38054a8cb95d23da912c2,
     type: 3}
   _cardsContainerTransform: {fileID: 3385349}
+  _editableCard: {fileID: 1600738498}
   _initiativeIcon: {fileID: 21300000, guid: d63d7de0f3e00d24ca8d7af3a7463174, type: 3}
   _hpIcon: {fileID: 21300000, guid: 8d0fc426ee40f32459e674d780d756bc, type: 3}
-  _editableCard: {fileID: 1600738498}
 --- !u!1 &615559599
 GameObject:
   m_ObjectHideFlags: 0

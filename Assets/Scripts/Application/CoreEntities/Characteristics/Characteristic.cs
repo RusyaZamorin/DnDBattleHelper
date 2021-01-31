@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Calculator;
-using Calculator.Operators;
+using CharacteristicsCalculator;
+using CharacteristicsCalculator.Operators;
 
 namespace Application.CoreEntities
 {
@@ -11,8 +11,8 @@ namespace Application.CoreEntities
     {        
         public string Name;
         public Sprite Icon;
-        public Function InitFunction = new Function(new Operand_Value(0f));
-        public Function SetFunction = new Function(new Operannd_X());
+        public Function InitFunction = new Function(new OperandValue(0f));
+        public Function SetFunction = new Function(new OperandX());
 
         private double _valueData = 0;
 
