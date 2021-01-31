@@ -6,7 +6,7 @@ using TMPro;
 using Application.CoreEntities;
 using CharacteristicsCalculator;
 
-namespace Application.Visual
+namespace Application.GameObjectEntityImplementations
 {
     public class CharacteristicPanel : MonoBehaviour
     {

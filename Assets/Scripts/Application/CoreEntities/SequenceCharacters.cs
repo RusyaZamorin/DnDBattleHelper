@@ -39,7 +39,7 @@ namespace Application.CoreEntities
         {
             _sequence.Add(character);            
 
-            if (AutoSort == true)
+            if (CanAutoSort == true)
                 Sort();
 
             OnChangedSequence?.Invoke();

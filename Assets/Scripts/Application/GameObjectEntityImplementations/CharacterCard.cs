@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using Application.CoreEntities;
 
-namespace Application.Visual
+namespace Application.GameObjectEntityImplementations
 {
     public class CharacterCard : MonoBehaviour
     {
@@ -50,7 +50,13 @@ namespace Application.Visual
             Init(character);            
         }
 
+        public Character GetCharacter()
+        {
+            return _character;
+        }
+
         private void UpdateName() => _nameInputField.text = _character.Name;
+
         private void UpdateIndex() => _indexTextField.text = ParseIndex();
 
         private string ParseIndex()

@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Application.Visual;
+using Application.GameObjectEntityImplementations;
 using Application.CoreEntities;
 
-namespace Application.CreatingEditingCards
+namespace Application.Managers
 {
     public class CharacterCardCreater : MonoBehaviour
     {
         [SerializeField] private GameObject _cardPrefab;
         [SerializeField] private Transform _cardsContainerTransform;
-        [SerializeField] private Sprite _initiativeIcon;
-        [SerializeField] private Sprite _hpIcon;
         [SerializeField] private CharacterCard _editableCard;
+        [SerializeField] private Sprite _initiativeIcon;
+        [SerializeField] private Sprite _hpIcon;        
 
         private Character _characterTemplate;        
 
