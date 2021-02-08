@@ -83,11 +83,21 @@ namespace CharacteristicsCalculator
 
                         lastNoteIsOperator = true;
                     }
+                    else if(OperatorsBar.IsCharacteristic(complexityOperator))
+                    {
+                        output += complexityOperator + " ";
+                        complexityOperator = "";
+
+                        lastNoteIsOperator = false;
+                    }
                 }
             }
             
             while (operStack.Count > 0)
                 output += operStack.Pop() + " ";
+
+            Debug.Log(output);
+
             return output;
         }
 
@@ -96,8 +106,13 @@ namespace CharacteristicsCalculator
             return CalculatePolishNotation(FromString(input));
         }
 
-        private static double CalculatePolishNotation(string notation)
-        {            
+        public static Function CreateFunction(string input)
+        {
+            return CreateFunctionFromNotation(FromString(input));
+        }
+
+        private static Function CreateFunctionFromNotation(string notation)
+        {
             char[] separator = { ' ' };
 
             List<string> polishNotationList = new List<string>(notation.
@@ -128,6 +143,10 @@ namespace CharacteristicsCalculator
                 {
                     operatorsStack.Push(new OperandX());
                 }
+                else if(OperatorsBar.IsCharacteristic(notationElement))
+                {
+                    operatorsStack.Push(new OperandCharacteristic(notationElement));
+                }
                 else
                 {
                     operatorsStack.Push(new OperandValue(double.Parse(notationElement)));
@@ -135,9 +154,13 @@ namespace CharacteristicsCalculator
             }
 
             firstOperator = operatorsStack.Pop();
+            
+            return new Function(firstOperator);
+        }
 
-            var function = new Function(firstOperator);
-            return function.Calculate(0f);
+        private static double CalculatePolishNotation(string notation)
+        {
+            return CreateFunctionFromNotation(notation).Calculate();
         }
 
         static private bool IsDelimeter(string symbol)

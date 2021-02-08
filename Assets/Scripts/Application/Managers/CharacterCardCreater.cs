@@ -8,23 +8,25 @@ namespace Application.Managers
 {
     public class CharacterCardCreater : MonoBehaviour
     {
-        [SerializeField] private GameObject _cardPrefab;
-        [SerializeField] private Transform _cardsContainerTransform;
+        [SerializeField] private GameObject _cardPrefab;        
         [SerializeField] private CharacterCard _editableCard;
         [SerializeField] private Sprite _initiativeIcon;
         [SerializeField] private Sprite _hpIcon;        
 
-        private Character _characterTemplate;        
+        private Character _characterTemplate;
+        private SequenceCharactersManager _sequenceCharactersManager;
 
         [ContextMenu("CreateCard")]
         public void CreateCard()
         {
-            var cardObject = Instantiate(_cardPrefab, _cardsContainerTransform);
-            CharacterCard characterCard = cardObject.GetComponent<CharacterCard>();
+            var cardObject = Instantiate(_cardPrefab, _sequenceCharactersManager.GetCardsContainerTransform());
+            CharacterCard newCard = cardObject.GetComponent<CharacterCard>();
 
             Character newCharacter = _characterTemplate.Copy();
 
-            characterCard.Init(newCharacter);
+            newCard.Init(newCharacter);
+
+            _sequenceCharactersManager.AddCard(newCard);
         }
 
         public void SetTemplateCharacter(Character character)
@@ -33,10 +35,12 @@ namespace Application.Managers
             _editableCard.ChangeCharacter(_characterTemplate);
         }
 
-        public void Init()
+        public void Init(SequenceCharactersManager sequenceCharactersManager)
         {
+            _sequenceCharactersManager = sequenceCharactersManager;
+
             // Template init with creating character template
-            string initiative = "Iitiative";
+            string initiative = "Initiative";
             string hp = "HP";
             _characterTemplate = new Character("name");
 

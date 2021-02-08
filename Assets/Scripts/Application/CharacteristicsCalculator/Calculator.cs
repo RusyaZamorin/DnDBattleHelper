@@ -14,7 +14,12 @@ namespace CharacteristicsCalculator
         public static int CalculateInputToInt(string input)
         {
             return (int)CalculateInputToDouble(input);               
-        }        
+        }
+
+        public static Function CreateFunction(string input)
+        {
+            return PolishNotationConverter.CreateFunction(input);
+        }
     }
 }
 

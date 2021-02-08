@@ -16,12 +16,14 @@ namespace CharacteristicsCalculator
             }
         }
 
+        public static List<string> CharacteristicsNames = new List<string>();
+
         public static string XSymbol => "x";
 
         public static bool IsOperator(string symbol)
         {
             if (_symbolsList.Contains(symbol))
-                return true;
+                return true;            
             else return false;
         }
 
@@ -30,8 +32,13 @@ namespace CharacteristicsCalculator
             return symbol == "x" || symbol == "X";
         }
 
-        public static IOperator GetOperator(string symbol)
+        public static bool IsCharacteristic(string symbol)
         {
+            return CharacteristicsNames.Contains(symbol);
+        }
+
+        public static IOperator GetOperator(string symbol)
+        {                        
             return (IOperator)Activator.CreateInstance(_operatorsTypes[symbol]);
         }
 
@@ -48,22 +55,22 @@ namespace CharacteristicsCalculator
             return false;
         }
 
-        public static bool IsBinaryOperator(IOperator opert) => !IsUnaryOperator(opert);
+        public static bool IsBinaryOperator(IOperator opert) => !IsUnaryOperator(opert);        
 
         private static Dictionary<string, Type> _operatorsTypes = new Dictionary<string, Type>()
-    {
-        {"(", null},
-        { ")", null},
-        {"+", typeof (OpPlus)},
-        {"-", typeof (OpMinus)},
-        {"*", typeof (OpMultiply)},
-        {"/", typeof (OpSplit)},
-        {"^", typeof (OpPow)},
-        {"sin", typeof (OpSin)},
-        {"cos", typeof (OpCos)},
-        {"um", typeof (OpUnaryMinus)},
-        {"d", typeof (OpDice)}
-    };
+        {
+            {"(", null},
+            { ")", null},
+            {"+", typeof (OpPlus)},
+            {"-", typeof (OpMinus)},
+            {"*", typeof (OpMultiply)},
+            {"/", typeof (OpSplit)},
+            {"^", typeof (OpPow)},
+            {"sin", typeof (OpSin)},
+            {"cos", typeof (OpCos)},
+            {"um", typeof (OpUnaryMinus)},
+            {"d", typeof (OpDice)}
+        };
 
         private static List<string> _symbolsList = new List<string>(_operatorsTypes.Keys);
     }    

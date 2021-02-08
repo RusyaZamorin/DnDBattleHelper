@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -17,6 +18,8 @@ namespace Application.GameObjectEntityImplementations
 
         private Character _character;
 
+        public event Action<CharacterCard> OnDelete;
+
         public void Init(Character character)
         {
             _character = character;
@@ -34,7 +37,7 @@ namespace Application.GameObjectEntityImplementations
             UpdateName();
             UpdateIndex();
 
-            character.OnChangedName += UpdateName;
+            character.OnChangedName += (Character Character) => UpdateName();
             character.OnChangedIndex += UpdateIndex;
         }
 
@@ -55,6 +58,11 @@ namespace Application.GameObjectEntityImplementations
             return _character;
         }
 
+        public void Delete()
+        {
+            OnDelete?.Invoke(this);
+        }
+
         private void UpdateName() => _nameInputField.text = _character.Name;
 
         private void UpdateIndex() => _indexTextField.text = ParseIndex();
@@ -64,7 +72,7 @@ namespace Application.GameObjectEntityImplementations
             if (_character.Index == 0)
                 return "";
             else
-                return (_character.Index).ToString();
+                return (_character.Index + 1).ToString();
         }
     }
 }
