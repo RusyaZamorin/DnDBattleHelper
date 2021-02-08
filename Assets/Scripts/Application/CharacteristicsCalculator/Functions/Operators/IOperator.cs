@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Application.CoreEntities;
 
 namespace CharacteristicsCalculator.Operators
 {
@@ -14,6 +12,8 @@ namespace CharacteristicsCalculator.Operators
         double GetValue();
 
         void SetX(double x);
+
+        void SetCharacter(Character character);
 
         IOperator Copy();
     }

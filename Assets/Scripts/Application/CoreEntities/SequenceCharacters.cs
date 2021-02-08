@@ -14,6 +14,8 @@ namespace Application.CoreEntities
         }
 
         public bool CanAutoSort = true;
+        public bool CanAutoChangeIndices = true;
+
         public SortTypes SortType = SortTypes.RightToLeft;
         public string NameCharacteristicForSort;        
 
@@ -23,9 +25,13 @@ namespace Application.CoreEntities
         public event Action OnChangedSequence;
         public event Action<Character> OnAddedCharacter;
         public event Action<Character> OnDeleteCharacter;
+        public event Action OnCleared;
 
         public void Sort()
         {
+            if (CanAutoSort == false)
+                return;
+
             if (SortType == SortTypes.RightToLeft)
                 _sequence.Sort((x, y) => y.GetCharacteristicValue(NameCharacteristicForSort).
                     CompareTo(x.GetCharacteristicValue(NameCharacteristicForSort)));
@@ -39,11 +45,15 @@ namespace Application.CoreEntities
 
         public void AddCharacter(Character character)
         {
-            _sequence.Add(character);            
+            _sequence.Add(character);
 
-            if (CanAutoSort == true)
-                Sort();
+            character.OnChangesName += ChangeIndicesWhenDeletingCharacter;
+            character.OnChangedName += ChangeIndexWhenAddingCharacter;
+            character.GetCharacteristic(NameCharacteristicForSort).OnChangedValue += Sort;
 
+            Sort();
+
+            ChangeIndexWhenAddingCharacter(character);
 
             OnChangedSequence?.Invoke();
             OnAddedCharacter?.Invoke(character);
@@ -53,8 +63,13 @@ namespace Application.CoreEntities
         {
             OnDeleteCharacter?.Invoke(character);
 
+            character.OnChangesName -= ChangeIndicesWhenDeletingCharacter;
+            character.OnChangedName -= ChangeIndexWhenAddingCharacter;
+
             if (_sequence.Contains(character))
                 _sequence.Remove(character);
+
+            ChangeIndicesWhenDeletingCharacter(character);
 
             OnChangedSequence?.Invoke();            
         }
@@ -87,7 +102,39 @@ namespace Application.CoreEntities
         { 
             return _sequence; 
         }
+
+        public void Clear() 
+        {
+            foreach(var character in _sequence)
+            {
+                DeleteCharacter(character);
+            }
+            OnCleared?.Invoke();
+        }
+
+        private void ChangeIndexWhenAddingCharacter(Character character)
+        {
+            if (CanAutoChangeIndices == false)
+                return;
+
+            var charactersWithSameName = _sequence.FindAll(c => (c.Name == character.Name) && (c != character));
+            if (charactersWithSameName.Count != 0)
+            {
+                charactersWithSameName.Sort((x, y) => y.Index.CompareTo(x.Index));
+                character.Index = charactersWithSameName[0].Index + 1;
+            }
+        }
+
+        private void ChangeIndicesWhenDeletingCharacter(Character character)
+        {
+            if (CanAutoChangeIndices == false)
+                return;
+
+            var characters = _sequence.FindAll(c => (c.Name == character.Name) && (c.Index > character.Index));
+            foreach (Character c in characters)
+                c.Index -= 1;
+        }
+
     }
 }
-
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Application.CoreEntities;
 
 namespace CharacteristicsCalculator.Operators
 {
@@ -12,6 +13,7 @@ namespace CharacteristicsCalculator.Operators
 
         protected IOperator _leftOperand;
         protected IOperator _rightOperand;
+        protected Character _character;
 
         public BaseOperator(IOperator leftOperand, IOperator rightOperand)
         {
@@ -32,6 +34,14 @@ namespace CharacteristicsCalculator.Operators
                 _leftOperand.SetX(x);
             if (_rightOperand != null)
                 _rightOperand.SetX(x);
+        }
+
+        public virtual void SetCharacter(Character character)
+        {
+            if (_leftOperand != null)
+                _leftOperand.SetCharacter(character);
+            if (_rightOperand != null)
+                _rightOperand.SetCharacter(character);
         }
 
         public virtual IOperator Copy()
