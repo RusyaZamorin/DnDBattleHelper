@@ -19,14 +19,14 @@ namespace Application.Managers
             _sequenceCharacters.NameCharacteristicForSort = "Initiative"; // TEMP
 
             _sequenceCharactersManager.Init(_sequenceCharacters);
-
+            
             _characterCardCreater.Init(_sequenceCharactersManager);
         }
 
         private void Awake()
         {
-            Init();            
-        }        
+            Init();
+        }
     }
 
 }

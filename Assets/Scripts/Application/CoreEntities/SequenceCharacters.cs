@@ -98,7 +98,7 @@ namespace Application.CoreEntities
             OnChangedSequence?.Invoke();
         }
 
-        public List<Character> GetItems() 
+        public IList GetItems() 
         { 
             return _sequence; 
         }

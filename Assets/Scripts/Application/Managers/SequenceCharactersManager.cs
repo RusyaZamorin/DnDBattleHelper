@@ -11,7 +11,7 @@ namespace Application.Managers
         [SerializeField] private Transform __cardsContainerTransform;
         
         private SequenceCharacters _sequenceCharacters;
-        private Dictionary<Character, CharacterCard> _characterToCardDictionary = new Dictionary<Character, CharacterCard>();
+        private readonly Dictionary<Character, CharacterCard> _characterToCardDictionary = new Dictionary<Character, CharacterCard>();
 
         public void Init(SequenceCharacters sequenceCharacters)
         {
@@ -35,7 +35,7 @@ namespace Application.Managers
         {            
             _characterToCardDictionary.Remove(characterCard.GetCharacter());
 
-            Character character = characterCard.GetCharacter();            
+            var character = characterCard.GetCharacter();            
             _sequenceCharacters.DeleteCharacter(character);
 
             Destroy(characterCard.gameObject);            
@@ -53,7 +53,7 @@ namespace Application.Managers
 
         private void UpdateCards()
         {
-            int index = 0; 
+            var index = 0; 
             foreach(Character character in _sequenceCharacters.GetItems())
             {
                 _characterToCardDictionary[character].transform.SetSiblingIndex(index);

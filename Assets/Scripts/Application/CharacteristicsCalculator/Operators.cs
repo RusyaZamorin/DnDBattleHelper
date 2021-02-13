@@ -1,30 +1,20 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
-using CharacteristicsCalculator.Operators;
+using Application.CharacteristicsCalculator.Functions.Operators;
 
-namespace CharacteristicsCalculator
+namespace Application.CharacteristicsCalculator
 {
-    public class OperatorsBar
+    public static class OperatorsBar
     {
-        public static List<string> ListSymbols
-        {
-            get
-            {
-                return _symbolsList;
-            }
-        }
+        public static List<string> ListSymbols { get; } = new List<string>(_operatorsTypes.Keys);
 
-        public static List<string> CharacteristicsNames = new List<string>();
+        private static List<string> _characteristicsNames = new List<string>();
 
         public static string XSymbol => "x";
 
         public static bool IsOperator(string symbol)
         {
-            if (_symbolsList.Contains(symbol))
-                return true;            
-            else return false;
+            return ListSymbols.Contains(symbol);
         }
 
         public static bool IsX(string symbol)
@@ -34,7 +24,7 @@ namespace CharacteristicsCalculator
 
         public static bool IsCharacteristic(string symbol)
         {
-            return CharacteristicsNames.Contains(symbol);
+            return _characteristicsNames.Contains(symbol);
         }
 
         public static IOperator GetOperator(string symbol)
@@ -45,14 +35,9 @@ namespace CharacteristicsCalculator
         public static bool IsUnaryOperator(IOperator opert)
         {
             var type = opert.GetType();
-            if (type == typeof(OpSin) ||
-               type == typeof(OpCos) ||
-               type == typeof(OpUnaryMinus)
-               )
-            {
-                return true;
-            }
-            return false;
+            return type == typeof(OpSin) ||
+                   type == typeof(OpCos) ||
+                   type == typeof(OpUnaryMinus);
         }
 
         public static bool IsBinaryOperator(IOperator opert) => !IsUnaryOperator(opert);        
@@ -71,7 +56,5 @@ namespace CharacteristicsCalculator
             {"um", typeof (OpUnaryMinus)},
             {"d", typeof (OpDice)}
         };
-
-        private static List<string> _symbolsList = new List<string>(_operatorsTypes.Keys);
     }    
 }

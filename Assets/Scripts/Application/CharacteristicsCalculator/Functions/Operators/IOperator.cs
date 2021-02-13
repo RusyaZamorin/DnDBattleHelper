@@ -1,6 +1,6 @@
 ﻿using Application.CoreEntities;
 
-namespace CharacteristicsCalculator.Operators
+namespace Application.CharacteristicsCalculator.Functions.Operators
 {
     public interface IOperator 
     {

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Application.CharacteristicsCalculator.Functions;
 
-namespace CharacteristicsCalculator
+namespace Application.CharacteristicsCalculator
 {
     public static class Calculator
     {

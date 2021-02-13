@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Application.CoreEntities;
 using UnityEngine;
-using Application.CoreEntities;
 
-namespace CharacteristicsCalculator.Operators
+namespace Application.CharacteristicsCalculator.Functions.Operators
 {
     public class OperandCharacteristic : BaseOperator
     {

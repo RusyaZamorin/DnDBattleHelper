@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Application.CoreEntities;
 
-namespace CharacteristicsCalculator.Operators
+namespace Application.CharacteristicsCalculator.Functions.Operators
 {
     public abstract class BaseOperator : IOperator
     {
@@ -15,7 +12,7 @@ namespace CharacteristicsCalculator.Operators
         protected IOperator _rightOperand;
         protected Character _character;
 
-        public BaseOperator(IOperator leftOperand, IOperator rightOperand)
+        protected BaseOperator(IOperator leftOperand, IOperator rightOperand)
         {
             LeftOperand = leftOperand;
             RightOperand = rightOperand;
@@ -30,23 +27,19 @@ namespace CharacteristicsCalculator.Operators
 
         public virtual void SetX(double x)
         {
-            if(_leftOperand != null)
-                _leftOperand.SetX(x);
-            if (_rightOperand != null)
-                _rightOperand.SetX(x);
+            _leftOperand?.SetX(x);
+            _rightOperand?.SetX(x);
         }
 
         public virtual void SetCharacter(Character character)
         {
-            if (_leftOperand != null)
-                _leftOperand.SetCharacter(character);
-            if (_rightOperand != null)
-                _rightOperand.SetCharacter(character);
+            _leftOperand?.SetCharacter(character);
+            _rightOperand?.SetCharacter(character);
         }
 
         public virtual IOperator Copy()
         {
-            IOperator operatorCopy = (IOperator)Activator.CreateInstance(GetType());
+            var operatorCopy = (IOperator)Activator.CreateInstance(GetType());
             if (_leftOperand != null)
                 operatorCopy.LeftOperand = _leftOperand.Copy();
 

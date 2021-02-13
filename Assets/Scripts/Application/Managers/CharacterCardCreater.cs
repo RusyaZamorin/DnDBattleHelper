@@ -20,9 +20,9 @@ namespace Application.Managers
         public void CreateCard()
         {
             var cardObject = Instantiate(_cardPrefab, _sequenceCharactersManager.GetCardsContainerTransform());
-            CharacterCard newCard = cardObject.GetComponent<CharacterCard>();
+            var newCard = cardObject.GetComponent<CharacterCard>();
 
-            Character newCharacter = _characterTemplate.Copy();
+            var newCharacter = _characterTemplate.Copy();
 
             newCard.Init(newCharacter);
 
@@ -40,18 +40,14 @@ namespace Application.Managers
             _sequenceCharactersManager = sequenceCharactersManager;
 
             // Template init with creating character template
-            string initiative = "Initiative";
-            string hp = "HP";
+            var initiative = "Initiative";
+            var hp = "HP";
             _characterTemplate = new Character("name");
 
-            var charact1 = new CharacteristicInt(hp);
-            charact1.Value = 10;
-            charact1.Icon = _hpIcon;
+            var charact1 = new CharacteristicInt(hp) {Value = 10, Icon = _hpIcon};
             _characterTemplate.Characteristics.Add(charact1);
 
-            var charact2 = new CharacteristicInt(initiative);
-            charact2.Value = 0;
-            charact2.Icon = _initiativeIcon;
+            var charact2 = new CharacteristicInt(initiative) {Value = 0, Icon = _initiativeIcon};
             _characterTemplate.Characteristics.Add(charact2);
 
             _editableCard.Init(_characterTemplate);

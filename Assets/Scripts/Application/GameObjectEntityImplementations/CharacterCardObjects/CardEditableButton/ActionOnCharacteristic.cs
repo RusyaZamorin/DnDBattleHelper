@@ -1,5 +1,5 @@
-﻿using Application.CoreEntities;
-using CharacteristicsCalculator;
+﻿using Application.CharacteristicsCalculator.Functions;
+using Application.CoreEntities;
 
 namespace Application.GameObjectEntityImplementations
 {
@@ -13,7 +13,7 @@ namespace Application.GameObjectEntityImplementations
             CharacteristicName = characteristicName;
         }
         
-        public void SetCharacteristicValue(Character character, double value)
+        public void Execute(Character character, double value)
         {
             character.SetCharacteristicValue(CharacteristicName, Function.Calculate(value, character));
         }
