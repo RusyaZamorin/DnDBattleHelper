@@ -9,7 +9,6 @@ namespace Application.CoreEntities
     {         
         private string _name = null;
         private int _index = 0;
-        private List<Characteristic> _characteristics = new List<Characteristic>();
 
         public Action<Character> OnChangedName;
         public Action<Character> OnChangesName;
@@ -24,7 +23,7 @@ namespace Application.CoreEntities
 
         public int Index
         {
-            get { return _index; }
+            get => _index;
             set
             {
                 _index = value;
@@ -34,7 +33,7 @@ namespace Application.CoreEntities
 
         public string Name
         {
-            get { return _name; }
+            get => _name;
             set
             {
                 OnChangesName?.Invoke(this);
@@ -43,21 +42,21 @@ namespace Application.CoreEntities
             }
         }
 
-        public List<Characteristic> Characteristics { get => _characteristics; }
-        
+        public List<Characteristic> Characteristics { get; } = new List<Characteristic>();
+
         public void SetCharacteristicValue(string characteristicName, double value)
         {
-            _characteristics.Find(characteristic => characteristic.Name == characteristicName).Value = value;
+            Characteristics.Find(characteristic => characteristic.Name == characteristicName).Value = value;
         }
 
         public double GetCharacteristicValue(string characteristicName)
         {
-            return _characteristics.Find(characteristic => characteristic.Name == characteristicName).Value;
+            return Characteristics.Find(characteristic => characteristic.Name == characteristicName).Value;
         }
 
         public Characteristic GetCharacteristic(string characteristicName)
         {
-            return _characteristics.Find(characteristic => characteristic.Name == characteristicName);
+            return Characteristics.Find(characteristic => characteristic.Name == characteristicName);
         }
 
         public void Delete()
@@ -67,7 +66,7 @@ namespace Application.CoreEntities
 
         public Character Copy()
         {
-            Character characterCopy = new Character(Name);
+            var characterCopy = new Character(Name);
 
             foreach (var characteristic in Characteristics)
             {

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace CharacteristicsCalculator.Operators
+namespace Application.CharacteristicsCalculator.Functions.Operators
 {
     public class OpPow : BaseOperator
     {

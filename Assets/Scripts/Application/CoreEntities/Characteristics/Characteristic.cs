@@ -2,27 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using CharacteristicsCalculator;
-using CharacteristicsCalculator.Operators;
+using Application.CharacteristicsCalculator.Functions;
+using Application.CharacteristicsCalculator.Functions.Operators;
 
 namespace Application.CoreEntities
 {
     public class Characteristic
     {        
-        public string Name;
+        public readonly string Name;
         public Sprite Icon;
-        public Function InitFunction = new Function(new OperandValue(0f));
-        public Function SetFunction = new Function(new OperandX());
+        private Function _initFunction = new Function(new OperandValue(0f));
+        private Function _setFunction = new Function(new OperandX());
 
         private double _valueData = 0;
 
         public Action OnChangedValue;
         public Action<Characteristic> OnChangedValueWithSender;
 
-        public Characteristic(string name)
+        protected Characteristic(string name)
         {
             Name = name;
-            _valueData = InitFunction.Calculate();
+            _valueData = _initFunction.Calculate();
         }        
 
         public double Value
@@ -33,17 +33,16 @@ namespace Application.CoreEntities
 
         public Characteristic Copy()
         {
-            Characteristic newCharacteristic = new Characteristic(Name);
-            newCharacteristic.Icon = Icon;
-            newCharacteristic.InitFunction = InitFunction;
-            newCharacteristic.SetFunction = SetFunction;
-            newCharacteristic._valueData = _valueData;
+            var newCharacteristic = new Characteristic(Name)
+            {
+                Icon = Icon, _initFunction = _initFunction, _setFunction = _setFunction, _valueData = _valueData
+            };
             return newCharacteristic;
         }
 
         protected virtual void SetValue(double value)
         {
-            _valueData = SetFunction.Calculate(value);
+            _valueData = _setFunction.Calculate(value);
 
             OnChangedValue?.Invoke();
             OnChangedValueWithSender?.Invoke(this);

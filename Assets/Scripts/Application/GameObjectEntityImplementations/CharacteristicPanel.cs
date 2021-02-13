@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using Application.CharacteristicsCalculator;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Application.CoreEntities;
-using CharacteristicsCalculator;
 
 namespace Application.GameObjectEntityImplementations
 {
@@ -28,13 +29,13 @@ namespace Application.GameObjectEntityImplementations
             _characteristic = characteristic;
 
             _nameField.text = characteristic.Name;
-            _inputField.text = characteristic.Value.ToString();            
+            _inputField.text = characteristic.Value.ToString(CultureInfo.InvariantCulture);            
             _characteristic.OnChangedValue += UpdateValue;
             if (characteristic.Icon != null)
                 _icon.sprite = characteristic.Icon;
         }
 
-        private void UpdateValue() => _inputField.text = _characteristic.Value.ToString();
+        private void UpdateValue() => _inputField.text = _characteristic.Value.ToString(CultureInfo.InvariantCulture);
 
     }
 }

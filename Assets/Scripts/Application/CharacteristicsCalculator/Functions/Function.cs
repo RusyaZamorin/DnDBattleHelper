@@ -1,11 +1,11 @@
-﻿using CharacteristicsCalculator.Operators;
+﻿using Application.CharacteristicsCalculator.Functions.Operators;
 using Application.CoreEntities;
 
-namespace CharacteristicsCalculator
+namespace Application.CharacteristicsCalculator.Functions
 {
     public class Function
     {
-        private IOperator _funcOperator;
+        private readonly IOperator _funcOperator;
 
         public Function(IOperator funcOperator) => _funcOperator = funcOperator;        
 

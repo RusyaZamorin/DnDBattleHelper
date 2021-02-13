@@ -26,7 +26,7 @@ namespace Application.GameObjectEntityImplementations
 
             foreach (var characteristic in _character.Characteristics)
             {
-                CharacteristicPanel characteristicPanel = Instantiate(_characteristicPanelPrefab, _characteristicPanelsContainer).
+                var characteristicPanel = Instantiate(_characteristicPanelPrefab, _characteristicPanelsContainer).
                     GetComponent<CharacteristicPanel>();
 
                 CharacteristicPanels.Add(characteristicPanel);
@@ -41,7 +41,7 @@ namespace Application.GameObjectEntityImplementations
             character.OnChangedIndex += UpdateIndex;
         }
 
-        public void SetName(string name) => _character.Name = name;
+        public void SetName(string value) => _character.Name = value;
 
         public void ChangeCharacter(Character character)
         {
@@ -69,10 +69,7 @@ namespace Application.GameObjectEntityImplementations
 
         private string ParseIndex()
         {
-            if (_character.Index == 0)
-                return "";
-            else
-                return (_character.Index + 1).ToString();
+            return _character.Index == 0 ? "" : (_character.Index + 1).ToString();
         }
     }
 }

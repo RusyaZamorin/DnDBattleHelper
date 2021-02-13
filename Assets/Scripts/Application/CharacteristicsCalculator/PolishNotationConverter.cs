@@ -1,19 +1,30 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Application.CharacteristicsCalculator.Functions;
+using Application.CharacteristicsCalculator.Functions.Operators;
 using UnityEngine;
-using System;
-using CharacteristicsCalculator.Operators;
 
-namespace CharacteristicsCalculator
+namespace Application.CharacteristicsCalculator
 {
-    public class PolishNotationConverter 
+    public static class PolishNotationConverter 
     {
-        public static string FromString(string input)
+        public static double Calculate(string input)
         {
-            string output = string.Empty;
-            Stack<string> operStack = new Stack<string>();
-            bool lastNoteIsOperator = true;
-            string complexityOperator = "";
+            return CalculatePolishNotation(FromString(input));
+        }
+
+        public static Function CreateFunction(string input)
+        {
+            return CreateFunctionFromNotation(FromString(input));
+        }
+
+        private static string FromString(string input)
+        {
+            var output = string.Empty;
+            var operStack = new Stack<string>();
+            var lastNoteIsOperator = true;
+            var complexityOperator = "";
 
             for (int i = 0; i < input.Length; i++)
             {                
@@ -40,26 +51,33 @@ namespace CharacteristicsCalculator
                 }
                 else if (IsOperator(input[i].ToString()))
                 {
-                    if (input[i] == '(')
-                        operStack.Push(input[i].ToString());
-                    else if (input[i] == ')')
-                    {                        
-                        string s = operStack.Pop();
-                        while (s != "(")
-                        {
-                            output += s + ' ';
-                            s = operStack.Pop();
-                        }
-                    }
-                    else
+                    switch (input[i])
                     {
-                        if (operStack.Count > 0)
-                            if (GetPriority(input[i].ToString()) <= GetPriority(operStack.Peek()))
+                        case '(':
+                            operStack.Push(input[i].ToString());
+                            break;
+                        case ')':
+                        {
+                            var s = operStack.Pop();
+                            while (s != "(")
                             {
-                                output += operStack.Pop().ToString() + " "; 
+                                output += s + ' ';
+                                s = operStack.Pop();
                             }
 
-                        operStack.Push(input[i].ToString());
+                            break;
+                        }
+                        default:
+                        {
+                            if (operStack.Count > 0)
+                                if (GetPriority(input[i].ToString()) <= GetPriority(operStack.Peek()))
+                                {
+                                    output += operStack.Pop().ToString() + " "; 
+                                }
+
+                            operStack.Push(input[i].ToString());
+                            break;
+                        }
                     }
 
                     lastNoteIsOperator = true;
@@ -100,25 +118,15 @@ namespace CharacteristicsCalculator
 
             return output;
         }
-
-        public static double Calculate(string input)
-        {
-            return CalculatePolishNotation(FromString(input));
-        }
-
-        public static Function CreateFunction(string input)
-        {
-            return CreateFunctionFromNotation(FromString(input));
-        }
-
+        
         private static Function CreateFunctionFromNotation(string notation)
         {
             char[] separator = { ' ' };
 
-            List<string> polishNotationList = new List<string>(notation.
+            IList polishNotationList = new List<string>(notation.
                 Split(separator, StringSplitOptions.RemoveEmptyEntries));
 
-            Stack<IOperator> operatorsStack = new Stack<IOperator>();
+            var operatorsStack = new Stack<IOperator>();
             IOperator firstOperator = null;
 
             foreach (string notationElement in polishNotationList)
@@ -163,25 +171,20 @@ namespace CharacteristicsCalculator
             return CreateFunctionFromNotation(notation).Calculate();
         }
 
-        static private bool IsDelimeter(string symbol)
+        private static bool IsDelimeter(string symbol)
         {
-            if ((" =".IndexOf(symbol) != -1))
-                return true;
-            return false;
+            return " =".IndexOf(symbol, StringComparison.Ordinal) != -1;
         }
 
-        static private bool IsOperator(string symbol) 
+        private static bool IsOperator(string symbol) 
         {
             return OperatorsBar.ListSymbols.Contains(symbol);
 
         }
 
-        static private int GetPriority(string symbol)
+        private static int GetPriority(string symbol)
         {
-            if (OperatorsBar.ListSymbols.Contains(symbol))
-                return OperatorsBar.ListSymbols.IndexOf(symbol);
-            else
-                return OperatorsBar.ListSymbols.Count;
+            return OperatorsBar.ListSymbols.Contains(symbol) ? OperatorsBar.ListSymbols.IndexOf(symbol) : OperatorsBar.ListSymbols.Count;
         }
     }
 }
